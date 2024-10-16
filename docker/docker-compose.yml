@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  
+  # Microservicio de Catálogo
+  ms-compra:
+    build:
+      context: ..
+    container_name: ms-compra
+    ports:
+      - "5002:5000"  # El contenedor expone el puerto 5002
+    networks:
+      - ecommerce-network
+
+networks:
+  ecommerce-network:
+    external: true
