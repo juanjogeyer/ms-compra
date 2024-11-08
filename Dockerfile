@@ -13,11 +13,13 @@ WORKDIR /app
 # Copiar los archivos de la aplicación al contenedor
 COPY . .
 
-# Añadir el archivo requirements.txt e instalar las dependencias de Python
-RUN pip install -r requirements.txt
+ADD requirements.txt ./requirements
 
-# Exponer el puerto 5002 para Flask
-EXPOSE 5002
+# Añadir el archivo requirements.txt e instalar las dependencias de Python
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Exponer el puerto 5000 para Flask
+EXPOSE 5000
 
 # Comando para ejecutar la aplicación Flask
 CMD ["flask", "run", "--host=0.0.0.0"]
