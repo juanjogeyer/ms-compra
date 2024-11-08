@@ -9,16 +9,8 @@ compra_service = CompraService()
 compra_schema = CompraSchema()
 response_schema = ResponseSchema()
 
-@compra.route('/compras', methods=['GET'])
-def index():
-    response_builder = ResponseBuilder()
-    compras = compra_service.all()
-    data = compra_schema.dump(compras, many=True)
-    response_builder.add_message("Compras encontradas").add_status_code(200).add_data(data)
-    return response_schema.dump(response_builder.build()), 200
-
-@compra.route('/compras', methods=['POST']) 
-def add():
+@compra.route('/compras', methods=['POST'])
+def comprar():
     response_builder = ResponseBuilder()
     try:
         compra = compra_schema.load(request.json)
@@ -30,7 +22,7 @@ def add():
         return response_schema.dump(response_builder.build()), 422
 
 @compra.route('/compras/<int:id>', methods=['DELETE'])
-def delete(id):
+def borrar_compra(id):
     response_builder = ResponseBuilder()
     data = compra_service.delete(id)
     if data:
